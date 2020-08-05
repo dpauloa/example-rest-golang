@@ -7,6 +7,7 @@ import (
 
 	"dpauloa/example-rest-golang/domain"
 	"dpauloa/example-rest-golang/domain/usecase"
+
 	"gopkg.in/validator.v2"
 )
 
@@ -20,7 +21,7 @@ type phoneBookPayload struct {
 	PhoneNumber domain.PhoneNumber `json:"phoneNumber" validate:"min=15,max=15"`
 }
 
-type phoneBookResponse struct {
+type PhoneBookResponse struct {
 	ID          int64  `json:"id"`
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`
@@ -49,7 +50,7 @@ func (h createPhoneBookHandler) ServeHTTP(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	encodeJSONStatus(w, http.StatusCreated, phoneBookResponse{
+	encodeJSONStatus(w, http.StatusCreated, PhoneBookResponse{
 		ID: response.ID,
 		FirstName:   response.FirstName,
 		LastName:    response.LastName,

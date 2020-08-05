@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type errorResponse struct {
+type ErrorResponse struct {
 	Error string `json:"error"`
 }
 
@@ -17,7 +17,7 @@ func jsonContentType(w http.ResponseWriter) {
 func encodeJSONError(w http.ResponseWriter, status int, err error) {
 	jsonContentType(w)
 	w.WriteHeader(status)
-	json.NewEncoder(w).Encode(errorResponse{
+	json.NewEncoder(w).Encode(ErrorResponse{
 		Error: err.Error(),
 	})
 }

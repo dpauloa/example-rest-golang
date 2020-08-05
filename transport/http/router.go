@@ -9,6 +9,10 @@ import (
 	"dpauloa/example-rest-golang/domain/usecase"
 )
 
+type Handler interface {
+	http.Handler
+}
+
 func NewRouter(createPhoneBookUC usecase.CreatePhoneBook) http.Handler {
 	r := chi.NewMux()
 	r.Use(middleware.Recoverer)
@@ -16,7 +20,7 @@ func NewRouter(createPhoneBookUC usecase.CreatePhoneBook) http.Handler {
 	r.Get("/health", healthCheck)
 
 	phoneResource := "/phones"
-	r.Post(phoneResource, createPhoneBookHandler{createPhoneBookUC}.ServeHTTP)
+	r.Method(http.MethodPost, phoneResource, createPhoneBookHandler{createPhoneBookUC})
 
 	return r
 }

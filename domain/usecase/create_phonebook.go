@@ -2,8 +2,11 @@ package usecase
 
 import (
 	"context"
+
 	"dpauloa/example-rest-golang/domain"
 )
+
+//go:generate mockery -name CreatePhoneBook
 
 type CreatePhoneBook interface {
 	Execute(cxt context.Context, firstName, lastName, phoneNumber string) (*domain.PhoneBook, error)
